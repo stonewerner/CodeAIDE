@@ -547,6 +547,12 @@ function refreshSiteContentHeight() {
 function refreshLayoutSize() {
   refreshSiteContentHeight();
   layout.updateSize();
+  if (sourceEditor && stdinEditor && stdoutEditor && aichatEditor) {
+    sourceEditor.layout();
+    stdinEditor.layout();
+    stdoutEditor.layout();
+    aichatEditor.layout();
+  }
 }
 
 window.addEventListener("resize", refreshLayoutSize);
@@ -643,6 +649,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         minimap: {
           enabled: true,
         },
+        renderWhitespace: "none",
+        fontLigatures: false,
+        disableMonospaceOptimizations: true,
+        fontWeight: "400",
+        letterSpacing: 0,
       });
 
       sourceEditor.addCommand(
@@ -661,6 +672,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         minimap: {
           enabled: false,
         },
+        renderWhitespace: "none",
+        fontLigatures: false,
+        disableMonospaceOptimizations: true,
+        fontWeight: "400",
+        letterSpacing: 0,
       });
     });
 
@@ -807,6 +823,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     layout.on("initialised", function () {
       setDefaults();
       refreshLayoutSize();
+      setTimeout(() => {
+        sourceEditor.layout();
+        stdinEditor.layout();
+        stdoutEditor.layout();
+        aichatEditor.layout();
+      }, 0);
       window.top.postMessage({ event: "initialised" }, "*");
     });
 
