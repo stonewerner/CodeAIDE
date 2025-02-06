@@ -1,4 +1,8 @@
 import { IS_PUTER } from "./puter.js";
+import {
+  sendMessage as sendOpenRouterMessage,
+  setApiKey,
+} from "./openrouter.js";
 
 const API_KEY = ""; // Get yours at https://platform.sulu.sh/apis/judge0
 
@@ -124,6 +128,13 @@ function decode(bytes) {
     return unescape(escaped);
   }
 }
+
+// Add near the top of the file where other event listeners are set up
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (e) => {
+    monaco.editor.setTheme(e.matches ? "vs-dark" : "vs");
+  });
 
 function showError(title, content) {
   $("#judge0-site-modal #title").html(title);
@@ -682,6 +693,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         folding: false,
         // Disable the editor's input handling since we'll use our own
         readOnly: true,
+        theme: window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "vs-dark"
+          : "vs",
+        tokens: [],
       });
 
       // Create chat UI structure as an overlay
@@ -721,7 +736,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       sendButton.addEventListener("click", sendMessage);
       clearButton.addEventListener("click", clearChat);
 
-      function sendMessage() {
+      async function sendMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
 
@@ -732,40 +747,54 @@ document.addEventListener("DOMContentLoaded", async function () {
         chatInput.value = "";
         chatInput.style.height = "auto";
 
-        // TODO: Send to OpenAI API
-        // For now, just echo back
-        setTimeout(() => {
-          addMessage(
-            "This is a placeholder response. OpenAI integration coming soon!",
-            "bot"
-          );
-        }, 500);
+        // Show loading indicator
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading-indicator";
+        loadingDiv.innerHTML = `
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        `;
+        chatBox.appendChild(loadingDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        try {
+          // Get current code context
+          const sourceCode = sourceEditor.getValue();
+          const response = await sendOpenRouterMessage(message, sourceCode);
+
+          // Remove loading indicator
+          loadingDiv.remove();
+
+          // Add bot response
+          addMessage(response, "bot");
+        } catch (error) {
+          // Remove loading indicator
+          loadingDiv.remove();
+
+          // Show error message
+          addMessage(`Error: ${error.message}`, "bot");
+          console.error("OpenRouter API Error:", error);
+        }
       }
 
       function addMessage(text, type) {
         // Update the editor content
-        const prefix = type === "user" ? "You" : "Assistant";
-        const currentContent = aichatEditor.getValue();
-        const newContent = currentContent
-          ? `${currentContent}\n\n${prefix}: ${text}`
-          : `${prefix}: ${text}`;
+        // const prefix = type === "user" ? "You" : "Assistant";
+        // const currentContent = aichatEditor.getValue();
+        // const newContent = currentContent
+        //   ? `${currentContent}\n\n${prefix}: ${text}`
+        //   : `${prefix}: ${text}`;
         //aichatEditor.setValue(newContent);
 
         // Scroll editor to bottom
         aichatEditor.revealLine(aichatEditor.getModel().getLineCount());
 
-        // Update the chat UI from the editor content
-        //chatBox.innerHTML = ""; // Clear existing messages
-        const messages = newContent.split("\n\n");
-        messages.forEach((message) => {
-          const [prefix, ...contentParts] = message.split(": ");
-          const content = contentParts.join(": "); // Rejoin in case the message contains colons
-          const messageDiv = document.createElement("div");
-          messageDiv.className = `message ${prefix === "You" ? "user" : "bot"}`;
-          messageDiv.textContent = content;
-          chatBox.appendChild(messageDiv);
-        });
-
+        // Update the chat UI
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${type}`;
+        messageDiv.textContent = text;
+        chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
       }
 
@@ -861,6 +890,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }
   };
+
+  const openRouterApiKeyInput = document.getElementById("openRouter-api-key");
+  openRouterApiKeyInput.addEventListener("change", function (e) {
+    setApiKey(e.target.value);
+    localStorage.setItem("openRouter_api_key", e.target.value);
+  });
+
+  const savedApiKey = localStorage.getItem("openRouter_api_key");
+  if (savedApiKey) {
+    openRouterApiKeyInput.value = savedApiKey;
+    setApiKey(savedApiKey);
+  }
 });
 
 const DEFAULT_SOURCE =
