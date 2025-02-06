@@ -1,0 +1,74 @@
+.chat-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--vscode-editor-background);
+  font-family: "JetBrains Mono", monospace;
+  z-index: 1;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  max-width: 85%;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+}
+
+.user {
+  align-self: flex-end;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+.bot {
+  align-self: flex-start;
+  background: var(--vscode-editor-selectionBackground);
+  color: var(--vscode-editor-foreground);
+}
+
+.input-box {
+  display: flex;
+  padding: 8px;
+  background: var(--vscode-editor-background);
+  border-top: 1px solid var(--vscode-editor-lineHighlightBorder);
+}
+
+.input-box textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 4px;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font-family: "JetBrains Mono", monospace;
+  resize: none;
+  min-height: 38px;
+  max-height: 150px;
+}
+
+.input-box button {
+  margin-left: 8px;
+  padding: 8px 16px;
+  border: none;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-box button:hover {
+  background: var(--vscode-button-hoverBackground);
+}
