@@ -1,33 +1,112 @@
-# Judge0 IDE
-[![Judge0 IDE Screenshot](./.github/screenshot.png)](https://ide.judge0.com)
+# 🤖 CodeAIDE - An AI-Powered IDE
 
-[![License](https://img.shields.io/github/license/judge0/ide?color=2185d0&style=flat-square)](https://github.com/judge0/ide/blob/master/LICENSE)
-[![Release](https://img.shields.io/github/v/release/judge0/ide?color=2185d0&style=flat-square)](https://github.com/judge0/ide/releases)
-[![Stars](https://img.shields.io/github/stars/judge0/ide?color=2185d0&style=flat-square)](https://github.com/judge0/ide/stargazers)
+[![License](https://img.shields.io/github/license/stonewerner/codeaide?color=2185d0&style=flat-square)](LICENSE)
+![AI Model](https://img.shields.io/badge/AI-Deepseek--R1-purple)
+![Based on](https://img.shields.io/badge/Based%20on-Judge0%20IDE-blue)
+![OpenRouter](https://img.shields.io/badge/API-OpenRouter-green)
 
-<a href="https://www.producthunt.com/posts/judge0-ide" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=179885&theme=light" alt="" height="43px" /></a>
+CodeAIDE enhances the powerful [Judge0 IDE](https://github.com/judge0/ide) with advanced AI coding assistance, providing developers with real-time AI-powered code suggestions, explanations, and problem-solving capabilities.
 
-## About
-[**Judge0 IDE**](https://ide.judge0.com) is a free and open-source online code editor that allows you to write and execute code from a rich set of languages. It's perfect for anybody who just wants to quickly write and run some code without opening a full-featured IDE on their computer. Moreover, it is also useful for teaching and learning or just trying out a new language.
+![CodeAIDE Screenshot](screenshot.png)
 
-Judge0 IDE is using [**Judge0**](https://ce.judge0.com) for executing the user's source code.
+## ✨ Features
 
-Visit https://ide.judge0.com, and enjoy happy coding. :)
+### Original Judge0 Features
+- 💻 Rich set of supported programming languages
+- ⚡ Quick code execution
+- 🌐 Browser-based development environment
+- 📝 Clean, intuitive interface
 
-## Community
-Do you have a question, feature request, or something else on your mind? Or do you want to follow Judge0 news?
+### AI Enhancements
+- 🤖 AI coding assistant powered by Deepseek-R1
+- 🔍 Code explanation on demand
+- 📚 Documentation generation
+- 🎯 Problem-solving guidance
 
-* [Subscribe to Judge0 newsletter](https://subscribe.judge0.com)
-* [Join our Discord server](https://discord.gg/GRc3v6n)
-* [Watch asciicasts](https://asciinema.org/~hermanzdosilovic)
-* [Report an issue](https://github.com/judge0/judge0/issues/new)
-* [Contact us](mailto:contact@judge0.com)
-* [Schedule an online meeting with us](https://meet.judge0.com)
+## 🚀 Getting Started
 
-## Author and Contributors
-Judge0 IDE was created by [Herman Zvonimir Došilović](https://github.com/hermanzdosilovic).
+### Prerequisites
+- Node.js (v14 or higher)
+- Docker (optional, for local development)
+- OpenRouter API key
 
-Thanks a lot to all [contributors](https://github.com/judge0/ide/graphs/contributors) for their contributions to this project.
+### Installation
 
-## License
-Judge0 IDE is licensed under the [MIT License](https://github.com/judge0/ide/blob/master/LICENSE).
+1. Clone the repository:
+```bash
+git clone https://github.com/stonewerner/codeaide.git
+cd codeaide
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up environment variables:
+```bash
+# Create .env file
+OPENROUTER_API_KEY=your_api_key
+JUDGE0_API_KEY=your_judge0_api_key  # Optional
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+## 🔧 Configuration
+
+
+### Judge0 Configuration
+Refer to the [Judge0 IDE documentation](https://github.com/judge0/ide) for base IDE configuration options.
+
+## 💡 Usage
+
+1. **Code Execution**
+   - Write code in the editor
+   - Select programming language
+   - Click "Run" to execute
+
+
+## 🔒 Security
+
+- AI requests are processed through OpenRouter's secure API
+- User code and data are not stored permanently
+- Rate limiting implemented for API calls
+- Secure authentication for premium features
+
+## 🛠️ Architecture
+
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Judge0 IDE](https://github.com/judge0/ide) - The foundation of this project
+- [Herman Zvonimir Došilović](https://github.com/hermanzdosilovic) - Creator of Judge0 IDE
+- [OpenRouter](https://openrouter.ai/) - AI API provider
+- [Deepseek](https://deepseek.ai/) - AI model provider
+
+## 📞 Support
+
+- [Report a bug](https://github.com/yourusername/codeaide/issues)
+- [Request a feature](https://github.com/yourusername/codeaide/issues)
+- [Join our Discord](your-discord-link)
+
+---
+
+Built with ❤️ by [Your Name]
